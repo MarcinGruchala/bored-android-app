@@ -1,5 +1,7 @@
 package com.bored.networking
 
+import com.bored.networking.manager.ActivityNetworkManager
+import com.bored.networking.service.BoredApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,10 +17,10 @@ object NetworkingModule {
 
     @Singleton
     @Provides
-    fun provideBoredService(): BoredService = Retrofit.Builder()
+    fun provideBoredService(): BoredApi = Retrofit.Builder()
         .baseUrl("https://www.boredapi.com")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build().create(BoredService::class.java)
+        .build().create(BoredApi::class.java)
 
 }

@@ -1,9 +1,10 @@
-package com.bored.networking
+package com.bored.networking.service
 
+import com.bored.networking.ActivityDto
 import io.reactivex.Observable
 import retrofit2.http.GET
 
-interface BoredService {
+interface BoredApi {
 
     @GET("/api/activity/")
     fun getActivity(): Observable<ActivityDto>

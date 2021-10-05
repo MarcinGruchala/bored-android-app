@@ -1,21 +1,44 @@
 package com.bored.presentation
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bored.domain.manager.ActivityDomainManager
 import com.bored.networking.ActivityDto
-import com.bored.networking.BoredService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val boredService: BoredService
+    private val activityManager: ActivityDomainManager
 ): ViewModel() {
 
-    fun downloadActivity(): Observable<ActivityDto> {
-        return boredService.getActivity()
-            .subscribeOn(Schedulers.io())
-    }
+    private val _activity: MutableLiveData<String> =
+        MutableLiveData()
 
+    val activity: LiveData<String> =
+        _activity
+
+    fun downloadActivity() {
+        activityManager.downloadActivity()
+            .subscribe(object : Observer<String> {
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(t: String) {
+                    _activity.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("Main","${e.message}")
+                }
+
+                override fun onComplete() {
+                }
+            })
+    }
 }

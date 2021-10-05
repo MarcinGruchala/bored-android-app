@@ -22,26 +22,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeEvents()
 
+        setOnClickListeners()
+    }
+
+    private fun showNewActivity(){
+        binding.tvActivity.text = viewModel.activity.value
+    }
+
+    private fun setOnClickListeners() {
         binding.btnGetActivity.setOnClickListener {
             viewModel.downloadActivity()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<ActivityDto> {
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
-                    override fun onNext(t: ActivityDto) {
-                        binding.tvActivity.text = t.activity
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("MainActivity", "${e.message}")
-                    }
-
-                    override fun onComplete() {
-                    }
-                })
         }
+    }
 
+    private fun observeEvents() {
+        viewModel.activity
+            .observe(this) { showNewActivity() }
     }
 }
+
