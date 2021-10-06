@@ -5,10 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bored.domain.manager.ActivityDomainManager
-import com.bored.networking.ActivityDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -31,6 +29,7 @@ class MainActivityViewModel @Inject constructor(
 
                 override fun onNext(t: String) {
                     _activity.value = t
+                    Log.d("Main", t)
                 }
 
                 override fun onError(e: Throwable) {
@@ -40,5 +39,9 @@ class MainActivityViewModel @Inject constructor(
                 override fun onComplete() {
                 }
             })
+    }
+
+    fun onGetActivityClicked() {
+        downloadActivity()
     }
 }

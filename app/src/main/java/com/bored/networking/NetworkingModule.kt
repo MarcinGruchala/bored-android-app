@@ -1,6 +1,5 @@
 package com.bored.networking
 
-import com.bored.networking.manager.ActivityNetworkManager
 import com.bored.networking.service.BoredApi
 import dagger.Module
 import dagger.Provides

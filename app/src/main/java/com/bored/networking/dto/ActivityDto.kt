@@ -1,4 +1,4 @@
-package com.bored.networking
+package com.bored.networking.dto
 
 data class ActivityDto(
     val activity: String,

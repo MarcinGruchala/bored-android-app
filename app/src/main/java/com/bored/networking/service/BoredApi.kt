@@ -1,6 +1,6 @@
 package com.bored.networking.service
 
-import com.bored.networking.ActivityDto
+import com.bored.networking.dto.ActivityDto
 import io.reactivex.Observable
 import retrofit2.http.GET
 
